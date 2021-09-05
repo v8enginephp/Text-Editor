@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Editor</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+
+<div id="rp" data-type="Rp"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script src="v8editor.js"></script>
+
+<script>
+    V8Plugin.addPlugin("test", "تلگرام", "fa fa-instagram", function (editor) {
+        editor.command("insertHTML", "تلگرام نیست بچ ");
+    });
+
+    V8Plugin.addPlugin("heading1", "H1", "fa fa-header", function (editor, selected) {
+        editor.command("heading", `H1`);
+    });
+
+    V8Plugin.addPlugin("color1", "رنگ", "fa fa-eyedropper", function (editor) {
+        $("#color1").change(function () {
+            editor.command("forecolor", $(this).val());
+            $("#colorPlugin").remove();
+        })
+    },"<input type='color' id='color1'>");
+
+    V8Plugin.addPlugin("font1", "فونت", "fa fa-font", function (editor) {
+        editor.command("fontName", "Tahoma");
+    });
+
+    var Rp = $('#rp').v8editor();
+</script>
+
+</body>
+</html>
