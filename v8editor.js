@@ -27,17 +27,12 @@ class V8editor {
                     </div>
                   </div>
                 </div>
-                <div class="col-md p-0 border">
-                  <ul class="nav float-right p-0" id="plugins" dir="rtl">
-                    <li class="nav-item">
-                      <i role="button" data-toggle="tooltip" title="خط افقی" class="fa nav-link fa-minus"></i>
-                    </li>
-                  </ul>
-                  <ul class="nav float-left mx-2">
-                    <li class="nav-item"><span>کلمه : {{ WordCount }}</span></li>
-                  </ul>
+                <div class="col-md p-0 border bg-light">
+                <div class="row mx-auto float-right" id="plugins" dir="rtl">
+                    <button  data-toggle="tooltip" title="align" id="valign" class="btn p-0 btn-light"> <i class="fa nav-link fa-paragraph"></i> </button>
                 </div>
-                <div dir="rtl" class="border col-md-12" placeholder="متن مورد نظر خود را وارد کنید ..." contenteditable="true" id="vname" style="min-height: 5rem">
+                </div>
+                <div dir="rtl" class="border col-md-12 bg-white py-2" placeholder="متن مورد نظر خود را وارد کنید ..."  contenteditable="true" id="vname" style="min-height: 20rem;text-align: initial;">
 
                 </div>
                 </div>`;
@@ -56,33 +51,35 @@ class V8editor {
         this.textArea = $(dom).find("#vname");
         this.modalDom = $(dom).find("#v8Modal");
 
+        $(dom).find("#valign").click(function () {
+            $(dom).find("#vname").attr("dir", (_, attr) => attr == "rtl" ? "ltr" : "rtl");
+        });
+
         $(dom[0]).find("#plugins").append(this.renderPlugins())
         this.element.html(dom)
-    }
+    }asdasd
 
     renderPlugins() {
         let pl = "";
         for (const item of V8Plugin.plugins) {
-            if (item.content === null)
-            {
-                pl += `  <li class="nav-item">
-                    <button class="btn border p-0" role="button"  id="${item.id}" data-toggle="tooltip" title="${item.title}" ><i  class="${item.icon} nav-link "></i></button>
-                 </li>`;
+            if (item.content === null) {
+                pl += `<button class="btn border p-0 bg-light" role="button"  id="${item.id}" data-toggle="tooltip" title="${item.title}" ><i  class="${item.icon} nav-link"></i></button>`;
+                let v8 = this;
+                $(document).on("click", "#" + item.id, function () {
+                    item.onClick(v8, v8.selected());
+                })
+            } else {
+                pl += `${item.content}`;
+                item.onClick(this,this.selected())
             }
-            else
-            {
-                pl += item.content;
-            }
-            let v8 = this;
-            $(document).on("click", "#" + item.id, function () {
-                item.onClick(v8, v8.selected());
-            })
+
         }
         return pl;
     }
 
     command(command, value) {
-        document.execCommand(command, false, value)
+        if (!document.execCommand(command, false, value))
+            document.execCommand(command, false, value)
     }
 
     selected() {
@@ -91,15 +88,15 @@ class V8editor {
 
     modal(type = "toggle") {
         this.modalDom.modal(type);
-        return  this;
+        return this;
     }
 
-    modalTitle(text){
+    modalTitle(text) {
         this.modalDom.find(".modal-title").text(text);
         return this;
     }
 
-    modalContent(html){
+    modalContent(html) {
         this.modalDom.find(".modal-body").html(html);
         return this;
     }
@@ -109,14 +106,25 @@ class V8editor {
 class V8Plugin {
     static plugins = [];
 
-    static addPlugin(id, title, icon, onClick,content = null) {
+    static addPlugin(id, title, icon, onClick, content = null) {
         this.plugins.push({
             id: id,
             title: title,
             icon: icon,
             onClick: onClick,
-            content : content
+            content: content
         })
+    }
+
+    static getTemplate(fileName) {
+        var readFile = "";
+        $.ajax({
+            url: `extra/${fileName}`,
+            async: false,
+        }).done(function (data) {
+            readFile = data;
+        });
+        return readFile;
     }
 }
 

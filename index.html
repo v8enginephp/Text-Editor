@@ -7,38 +7,70 @@
     <title>Editor</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
-</head>
-<body>
+    <link href='https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css' rel='stylesheet' type='text/css'>
+    <style>
+        *:not(.fa,font) {
+            font-family: Vazir;
+        }
+    </style>
 
-<div id="rp" data-type="Rp"></div>
+</head>
+<body style="background-color: #dedede">
+
+<div class="row mx-auto m-5">
+    <div class="col-md-8 mx-auto">
+        <div id="rp" data-type="Rp"></div>
+    </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
 
 <script src="v8editor.js"></script>
 
 <script>
-    V8Plugin.addPlugin("test", "تلگرام", "fa fa-instagram", function (editor) {
-        editor.command("insertHTML", "تلگرام نیست بچ ");
-    });
-
-    V8Plugin.addPlugin("heading1", "H1", "fa fa-header", function (editor, selected) {
-        editor.command("heading", `H1`);
-    });
-
-    V8Plugin.addPlugin("color1", "رنگ", "fa fa-eyedropper", function (editor) {
-        $("#color1").change(function () {
-            editor.command("forecolor", $(this).val());
-            $("#colorPlugin").remove();
-        })
-    },"<input type='color' id='color1'>");
+    V8Plugin.addPlugin("style1", "style", "fa fa-header", function (editor, selected) {
+        $(document).on("change", "#heading1", function () {
+            editor.command("FormatBlock", $(this).val());
+        });
+    }, V8Plugin.getTemplate("heading.html"));
 
     V8Plugin.addPlugin("font1", "فونت", "fa fa-font", function (editor) {
-        editor.command("fontName", "Tahoma");
-    });
+        $(document).on("change", "#font1", function () {
+            editor.command("fontName", $(this).val());
+        })
+    }, V8Plugin.getTemplate("font.html"));
+
+    V8Plugin.addPlugin("color1", "رنگ", "fa fa-eyedropper", function (editor) {
+        $(document).on("click", ".vcolor", function () {
+            const color = $(this).data("color");
+            editor.command("forecolor", color);
+            $(".fa-font").css("border-color", color);
+        })
+    }, V8Plugin.getTemplate("color.html"));
+
+    V8Plugin.addPlugin("size1", "سایز", "fa fa-font", function (editor) {
+        $(document).on("click", "#vsize", function () {
+            editor.command("fontSize", $(this).val());
+        })
+    }, V8Plugin.getTemplate("size.html"));
+
+    V8Plugin.addPlugin("bg1", "رنگ پسزمینه", "fa fa-font", function (editor) {
+        $(document).on("click", ".vbgcolor", function () {
+            const color = $(this).data("color");
+            editor.command("hiliteColor", color);
+            $("#bg1").find(".fa-font").css("background-color", color);
+        })
+    }, V8Plugin.getTemplate("bg.html"));
 
     var Rp = $('#rp').v8editor();
+
+    //dependency
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.dropdown-toggle').dropdown();
 </script>
 
 </body>
