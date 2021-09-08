@@ -57,7 +57,9 @@ class V8editor {
 
         $(dom[0]).find("#plugins").append(this.renderPlugins())
         this.element.html(dom)
-    }asdasd
+    }
+
+    asdasd
 
     renderPlugins() {
         let pl = "";
@@ -70,7 +72,7 @@ class V8editor {
                 })
             } else {
                 pl += `${item.content}`;
-                item.onClick(this,this.selected())
+                item.onClick(this, this.selected())
             }
 
         }
@@ -80,6 +82,13 @@ class V8editor {
     command(command, value) {
         if (!document.execCommand(command, false, value))
             document.execCommand(command, false, value)
+    }
+
+    addCss(key, value) {
+        var listId = window.getSelection().focusNode.parentNode;
+
+        if (this.textArea.find(listId).length > 0)
+            $(listId).css(key, value);
     }
 
     selected() {
@@ -116,12 +125,13 @@ class V8Plugin {
         })
     }
 
-    static addDivider(){
+    static addDivider() {
         this.plugins.push({
             id: "divider",
             title: "جداکننده",
             icon: "",
-            onClick: function (){},
+            onClick: function () {
+            },
             content: '<div class="my-1 border-muted mx-1" style="border-right: 1px solid gray"></div>'
         })
     }

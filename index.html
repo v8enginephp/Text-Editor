@@ -86,6 +86,16 @@
 
     V8Plugin.addDivider();
 
+    V8Plugin.addPlugin("list1", "لیست ها", "fa fa-list", function (editor) {
+        $(document).on("click", ".list1", function () {
+            $(this).toggleClass("active");
+            editor.command($(this).data("type"), "");
+            editor.addCss("list-style-type","decimal-leading-zero")
+        })
+    }, V8Plugin.getTemplate("list.html"));
+
+    V8Plugin.addDivider();
+
 
     var Rp = $('#rp').v8editor();
 
