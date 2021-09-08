@@ -116,6 +116,16 @@ class V8Plugin {
         })
     }
 
+    static addDivider(){
+        this.plugins.push({
+            id: "divider",
+            title: "جداکننده",
+            icon: "",
+            onClick: function (){},
+            content: '<div class="my-1 border-muted mx-1" style="border-right: 1px solid gray"></div>'
+        })
+    }
+
     static getTemplate(fileName) {
         var readFile = "";
         $.ajax({

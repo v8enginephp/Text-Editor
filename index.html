@@ -12,8 +12,12 @@
         *:not(.fa,font) {
             font-family: Vazir;
         }
-    </style>
 
+        #vname::selection, span::selection, font::selection {
+            color: white;
+            background: #28b8e1;
+        }
+    </style>
 </head>
 <body style="background-color: #dedede">
 
@@ -38,6 +42,8 @@
         });
     }, V8Plugin.getTemplate("heading.html"));
 
+    V8Plugin.addDivider();
+
     V8Plugin.addPlugin("font1", "فونت", "fa fa-font", function (editor) {
         $(document).on("change", "#font1", function () {
             editor.command("fontName", $(this).val());
@@ -60,11 +66,26 @@
 
     V8Plugin.addPlugin("bg1", "رنگ پسزمینه", "fa fa-font", function (editor) {
         $(document).on("click", ".vbgcolor", function () {
-            const color = $(this).data("color");
+            var color = $(this).data("color");
             editor.command("hiliteColor", color);
+
+            color = color == 1 ? "#000" : color;
+
             $("#bg1").find(".fa-font").css("background-color", color);
         })
     }, V8Plugin.getTemplate("bg.html"));
+
+    V8Plugin.addDivider();
+
+    V8Plugin.addPlugin("fontstyle1", "استایل فونت", "fa fa-font", function (editor) {
+        $(document).on("click", ".fontstyle1", function () {
+            $(this).toggleClass("active");
+            editor.command($(this).data("type"), "");
+        })
+    }, V8Plugin.getTemplate("fontStyle.html"));
+
+    V8Plugin.addDivider();
+
 
     var Rp = $('#rp').v8editor();
 
