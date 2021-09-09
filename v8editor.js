@@ -32,7 +32,7 @@ class V8editor {
                     <button  data-toggle="tooltip" title="align" id="valign" class="btn p-0 btn-light"> <i class="fa nav-link fa-paragraph"></i> </button>
                 </div>
                 </div>
-                <div dir="rtl" class="border col-md-12 bg-white py-2" placeholder="متن مورد نظر خود را وارد کنید ..."  contenteditable="true" id="vname" style="min-height: 20rem;text-align: initial;">
+                <div dir="rtl" class="border col-md-12 bg-white py-2" placeholder="متن مورد نظر خود را وارد کنید ..."  contenteditable="true" id="vname" style="height: 30rem;text-align: initial;overflow: auto">
 
                 </div>
                 </div>`;
@@ -65,7 +65,7 @@ class V8editor {
         let pl = "";
         for (const item of V8Plugin.plugins) {
             if (item.content === null) {
-                pl += `<button class="btn border p-0 bg-light" role="button"  id="${item.id}" data-toggle="tooltip" title="${item.title}" ><i  class="${item.icon} nav-link"></i></button>`;
+                pl += `<button class="btn p-0 bg-light" role="button"  id="${item.id}" data-toggle="tooltip" title="${item.title}" ><i  class="${item.icon} nav-link"></i></button>`;
                 let v8 = this;
                 $(document).on("click", "#" + item.id, function () {
                     item.onClick(v8, v8.selected());

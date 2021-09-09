@@ -90,9 +90,34 @@
         $(document).on("click", ".list1", function () {
             $(this).toggleClass("active");
             editor.command($(this).data("type"), "");
-            editor.addCss("list-style-type","decimal-leading-zero")
         })
     }, V8Plugin.getTemplate("list.html"));
+
+    V8Plugin.addDivider();
+
+    V8Plugin.addPlugin("indent1", "فرورفتگی", "fa fa-indent", function (editor) {
+        $(document).on("click", ".indent1", function () {
+            editor.command($(this).data("type"), "");
+        })
+    }, V8Plugin.getTemplate("indent.html"));
+
+    V8Plugin.addDivider();
+
+    V8Plugin.addPlugin("align1", "فرورفتگی", "fa fa-align", function (editor) {
+        $(document).on("click", ".align1", function () {
+            editor.command($(this).data("type"), "");
+        })
+    }, V8Plugin.getTemplate("align.html"));
+
+    V8Plugin.addDivider();
+
+    V8Plugin.addPlugin("image1", "تصویر", "fa fa-image", function (editor) {
+        document.execCommand("insertImage", false, prompt("آدرس عکس خود را وارد فرمایید"))
+    });
+
+    V8Plugin.addPlugin("link1", "تصویر", "fa fa-link", function (editor) {
+            document.execCommand("createLink", false, prompt("لینک موردنظر خود را وارد فرمایید"))
+    });
 
     V8Plugin.addDivider();
 
