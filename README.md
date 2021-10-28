@@ -1,1 +1,1 @@
-# V8 editor
+# V8 Text Editor by Bootstrap js and Fontawsome

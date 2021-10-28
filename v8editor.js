@@ -59,8 +59,6 @@ class V8editor {
         this.element.html(dom)
     }
 
-    asdasd
-
     renderPlugins() {
         let pl = "";
         for (const item of V8Plugin.plugins) {
@@ -109,6 +107,8 @@ class V8editor {
         this.modalDom.find(".modal-body").html(html);
         return this;
     }
+
+
 
 }
 
